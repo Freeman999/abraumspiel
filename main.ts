@@ -1,6 +1,11 @@
 /**
  * neues Bild zeichnen
  */
+/**
+ * Modus 1
+ * 
+ * (neigen)
+ */
 input.onGesture(Gesture.TiltRight, function () {
     if (modus == 1) {
         if (Xaktuell + Xchange < 4 && Xaktuell < 4) {
@@ -74,6 +79,11 @@ modus = 0
 Reset()
 /**
  * vertikaler reset falls nötig
+ */
+/**
+ * Modus 0
+ * 
+ * (A/B)
  */
 /**
  * neuer Platz berechnen:
