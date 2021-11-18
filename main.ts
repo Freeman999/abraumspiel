@@ -1,7 +1,12 @@
 /**
  * Modus 2
  * 
- * (P)
+ * (Pins)
+ */
+/**
+ * Modus 3
+ * 
+ * (nix)
  */
 input.onPinPressed(TouchPin.P0, function () {
     if (modus == 2) {
@@ -47,7 +52,7 @@ input.onGesture(Gesture.TiltLeft, function () {
  * Variablen resetten und pausieren
  */
 input.onButtonPressed(Button.AB, function () {
-    if (modus < 2) {
+    if (modus < 3) {
         modus += 1
     } else {
         modus = 0
@@ -85,7 +90,7 @@ function Reset () {
             . . . . .
             `)
         basic.clearScreen()
-    } else {
+    } else if (modus == 2) {
         basic.showLeds(`
             . # # # .
             . # . . #
@@ -94,6 +99,8 @@ function Reset () {
             . # . . .
             `)
         basic.clearScreen()
+    } else {
+        basic.showString("Pause")
     }
     led.plot(0, 0)
     led.plot(1, 0)
