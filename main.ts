@@ -1,43 +1,69 @@
 /**
- * neues Bild zeichnen
- */
-/**
- * Modus 1
+ * Modus 2
  * 
- * (neigen)
+ * (P)
  */
+input.onPinPressed(TouchPin.P0, function () {
+    if (modus == 2) {
+        moveLinks()
+    }
+})
 input.onGesture(Gesture.TiltRight, function () {
     if (modus == 1) {
-        if (Xaktuell + Xchange < 4 && Xaktuell < 4) {
-            Xchange += 1
-        }
+        moveRechts()
+    }
+})
+function moveRechts () {
+    if (Xaktuell + Xchange < 4 && Xaktuell < 4) {
+        Xchange += 1
+    }
+}
+input.onPinPressed(TouchPin.P3, function () {
+    if (modus == 2) {
+        moveRechts()
     }
 })
 input.onButtonPressed(Button.A, function () {
     if (modus == 0) {
-        if (Xaktuell + Xchange > 0 && Xaktuell > 0) {
-            Xchange += -1
-        }
+        moveLinks()
     }
 })
 input.onGesture(Gesture.TiltLeft, function () {
     if (modus == 1) {
-        if (Xaktuell + Xchange > 0 && Xaktuell > 0) {
-            Xchange += -1
-        }
+        moveLinks()
     }
 })
+/**
+ * neuer Platz berechnen:
+ * 
+ * rechts/links Bewegung
+ * 
+ * Bewegung nach oben
+ */
+/**
+ * neues Bild zeichnen
+ */
+/**
+ * Variablen resetten und pausieren
+ */
 input.onButtonPressed(Button.AB, function () {
-    modus += 1
+    if (modus < 2) {
+        modus += 1
+    } else {
+        modus = 0
+    }
     Reset()
 })
 input.onButtonPressed(Button.B, function () {
     if (modus == 0) {
-        if (Xaktuell + Xchange < 4 && Xaktuell < 4) {
-            Xchange += 1
-        }
+        moveRechts()
     }
 })
+function moveLinks () {
+    if (Xaktuell + Xchange > 0 && Xaktuell > 0) {
+        Xchange += -1
+    }
+}
 function Reset () {
     pausierer = false
     basic.clearScreen()
@@ -50,13 +76,22 @@ function Reset () {
     if (modus == 0) {
         basic.showIcon(IconNames.Yes)
         basic.clearScreen()
-    } else {
+    } else if (modus == 1) {
         basic.showLeds(`
             . . . . .
             . # . # .
             # . . . #
             . # . # .
             . . . . .
+            `)
+        basic.clearScreen()
+    } else {
+        basic.showLeds(`
+            . # # # .
+            . # . . #
+            . # # # .
+            . # . . .
+            . # . . .
             `)
         basic.clearScreen()
     }
@@ -86,14 +121,9 @@ Reset()
  * (A/B)
  */
 /**
- * neuer Platz berechnen:
+ * Modus 1
  * 
- * rechts/links Bewegung
- * 
- * Bewegung nach oben
- */
-/**
- * Variablen resetten und pausieren
+ * (neigen)
  */
 basic.forever(function () {
     while (pausierer) {
